@@ -61,7 +61,17 @@ vows.describe('Stately').addBatch({
       }
     },
     "with an obj that doesn't match" : {
-      
+      topic : function(machine) {
+        var obj = {
+          type : "banana",
+          state : "ripe"
+        };
+        machine.handle(obj);
+        return obj;
+      },
+      "should not run" : function(obj) {
+        assert.equal(obj.state, "ripe");
+      }
     }
   }
 }).export(module);
