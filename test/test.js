@@ -141,10 +141,13 @@ vows.describe('Stately').addBatch({
       apple : {
         ripe : function(apple) {
           apple.bite = "chomp";
-        },
+        }
       },
       ripe : function(obj) {
         obj.slice = "yum";
+      },
+      unripe : function(obj) {
+        obj.eat = "later";
       }
     }),
     "with a matching type and state" : {
@@ -160,6 +163,39 @@ vows.describe('Stately').addBatch({
       topic : runMachine({type : "banana", state : "ripe"}),
       "should not run the untyped state" : function(obj) {
         assert.equal(obj.slice, "yum");
+      }
+    },
+    "with a matching type but generic state" : {
+      topic : runMachine({type : "apple", state : "unripe"}),
+      "should run the generic state handler" : function(obj) {
+        assert.equal(obj.eat, "later");
+      }
+    }
+  },
+  "with typed and untyped states and a typed default handler" : {
+    topic : stately.define({
+      apple : {
+        ripe : function(apple) {
+          apple.bite = "chomp";
+        },
+        _default : function(apple) {
+          apple.juggle_it = "why not";
+        }
+      },
+      ripe : function(obj) {
+        obj.slice = "yum";
+      },
+      unripe : function(obj) {
+        obj.eat = "later";
+      }
+    }),
+    "with a matching type but generic state" : {
+      topic : runMachine({type : "apple", state : "unripe"}),
+      "should not run the generic state handler" : function(obj) {
+        assert.isUndefined(obj.eat);
+      },
+      "should run the typed default" : function(apple) {
+        assert.equal(apple.juggle_it, "why not");
       }
     }
   }
