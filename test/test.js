@@ -73,6 +73,26 @@ vows.describe('Stately').addBatch({
         assert.equal(obj.state, "ripe");
       }
     }
+  },
+  "with a default" : {
+    topic : stately.define({
+      foo : function(obj) {
+        obj.foo = 'bar';
+      },
+      _default : function(obj) {
+        obj.default_ran = true;
+      }
+    }),
+    "with an obj that doesn't match" : {
+      topic : function(machine) {
+        var obj = {state : "nomatch"};
+        machine.handle(obj);
+        return obj;
+      },
+      "should run the default" : function(obj) {
+        assert.isTrue(obj.default_ran);
+      }
+    }
   }
 }).export(module);
 
