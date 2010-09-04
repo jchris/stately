@@ -24,21 +24,13 @@ vows.describe('Stately').addBatch({
       return machine;
     },
     "with a matching state" : {
-      topic : function(machine) {
-        var obj = {state : "foo"};
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({state : "foo"}),
       "should get triggered" : function(obj) {
         assert.equal(obj.foo, 'bar');
       }
     },
     "with a non-matching state" : {
-      topic : function(machine) {
-        var obj = {state : "bam"};
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({state : "bam"}),
       "should not run" : function(obj) {
         assert.equal(obj.state, 'bam');
       }
@@ -55,27 +47,19 @@ vows.describe('Stately').addBatch({
       });
     },
     "with an obj that matches" : {
-      topic : function(machine) {
-        var obj = {
-          type : "apple",
-          state : "ripe"
-        };
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({
+        type : "apple",
+        state : "ripe"
+      }),
       "should run" : function(obj) {
         assert.equal(obj.bite, "chomp");
       }
     },
     "with an obj that doesn't match" : {
-      topic : function(machine) {
-        var obj = {
-          type : "banana",
-          state : "ripe"
-        };
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({
+        type : "banana",
+        state : "ripe"
+      }),
       "should not run" : function(obj) {
         assert.equal(obj.state, "ripe");
       }
@@ -91,11 +75,7 @@ vows.describe('Stately').addBatch({
       }
     }),
     "with an obj that doesn't match" : {
-      topic : function(machine) {
-        var obj = {state : "nomatch"};
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({state : "nomatch"}),
       "should run the default" : function(obj) {
         assert.isTrue(obj.default_ran);
       }
@@ -113,21 +93,13 @@ vows.describe('Stately').addBatch({
       }
     }),
     "with a typed obj that doesn't match state" : {
-      topic : function(machine) {
-        var obj = {type:"apple",state : "nomatch"};
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({type:"apple",state : "nomatch"}),
       "should run the default" : function(obj) {
         assert.isTrue(obj.apple_default_ran);
       }
     },
     "with an untyped object" : {
-      topic : function(machine) {
-        var obj = {state : "nomatch"};
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({state : "nomatch"}),
       "should not run" : function(obj) {
         assert.isUndefined(obj.apple_default_ran);
       }
@@ -148,11 +120,7 @@ vows.describe('Stately').addBatch({
       }
     }),
     "with a typed obj that doesn't match state" : {
-      topic : function(machine) {
-        var obj = {type:"apple",state : "nomatch"};
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({type:"apple",state : "nomatch"}),
       "should run the default" : function(obj) {
         assert.isTrue(obj.apple_default_ran);
       },
@@ -161,11 +129,7 @@ vows.describe('Stately').addBatch({
       }
     },
     "with an untyped object" : {
-      topic : function(machine) {
-        var obj = {state : "nomatch"};
-        machine.handle(obj);
-        return obj;
-      },
+      topic : runMachine({state : "nomatch"}),
       "should run the generic default" : function(obj) {
         assert.isUndefined(obj.apple_default_ran);
         assert.isTrue(obj.generic_default_ran);
