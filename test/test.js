@@ -6,6 +6,13 @@ var vows = require('vows')
   , stately = require('../lib/stately')
   ;
 
+function runMachine(obj) {
+  return function(machine) {
+    machine.handle(obj);
+    return obj;
+  };
+};
+
 vows.describe('Stately').addBatch({
   "very simple" : {
     topic : function() {
@@ -162,6 +169,33 @@ vows.describe('Stately').addBatch({
       "should run the generic default" : function(obj) {
         assert.isUndefined(obj.apple_default_ran);
         assert.isTrue(obj.generic_default_ran);
+      }
+    }
+  },
+  "with typed and untyped states" : {
+    topic : stately.define({
+      apple : {
+        ripe : function(apple) {
+          apple.bite = "chomp";
+        },
+      },
+      ripe : function(obj) {
+        obj.slice = "yum";
+      }
+    }),
+    "with a matching type and state" : {
+      topic : runMachine({type : "apple", state : "ripe"}),
+      "should run the typed state" : function(obj) {
+        assert.equal(obj.bite, "chomp");
+      },
+      "should not run the untyped state" : function(obj) {
+        assert.isUndefined(obj.slice);
+      }
+    },
+    "with a mismatched type" : {
+      topic : runMachine({type : "banana", state : "ripe"}),
+      "should not run the untyped state" : function(obj) {
+        assert.equal(obj.slice, "yum");
       }
     }
   }
