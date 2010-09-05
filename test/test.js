@@ -202,8 +202,8 @@ vows.describe('Stately').addBatch({
   "very simple with a before" : {
     topic : function() {
       var machine = stately.define({
-        _before : function(obj) {
-          return obj.core;
+        _before : function(obj, cb) {
+          cb(obj.core);
         },
         foo : function(obj) {
           obj.foo = 'bar';
