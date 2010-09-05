@@ -198,6 +198,32 @@ vows.describe('Stately').addBatch({
         assert.equal(apple.juggle_it, "why not");
       }
     }
-  }
+  },
+  "very simple with a before" : {
+    topic : function() {
+      var machine = stately.define({
+        _before : function(obj) {
+          return obj.core;
+        },
+        foo : function(obj) {
+          obj.foo = 'bar';
+        }
+      });
+      return machine;
+    },
+    "with a matching state" : {
+      topic : runMachine({core : {state : "foo"}}),
+      "should get triggered" : function(obj) {
+        assert.equal(obj.core.foo, 'bar');
+      }
+    },
+    "with a non-matching state" : {
+      topic : runMachine({state : "foo", core:{state : "bam"}}),
+      "should not run" : function(obj) {
+        assert.isUndefined(obj.foo);
+        assert.isUndefined(obj.core.foo);
+      }
+    }
+  },
 }).export(module);
 
