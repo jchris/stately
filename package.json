@@ -2,7 +2,7 @@
   "name" : "stately"
 , "description" : "A CommonJS state-machine that works in Node or the browser"
 , "homepage" : "http://github.com/jchris/stately"
-, "version" : "0.1.0"
+, "version" : "0.1.1"
 , "author" : "J Chris Anderson <jchris@couch.io> (http://jchrisa.net)"
 , "contributors" : []
 , "repository" : 
