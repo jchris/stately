@@ -24,7 +24,7 @@ In real life you would hook `myMachine.handle` up as the listener to events on a
 
 You can also deal with objects of multiple types if you want, by nesting the definitions one-layer deep, see the tests for details.
 
-The plan is to make the `getState` and `getType` methods pluggable.
+The `_getState` and `_getType` methods are pluggable.
 
 ## Tests
 
@@ -37,10 +37,8 @@ To run them:
 
 ## TODO
 
-* Make state and type readers pluggable
-* Add ability to do pluggable channel-ack so you can have eg: concurrent CouchDB _changes handlers.
-* Add a _before hook
 * Test modifying the states after definition
+* Document more usage scenarios
 
 ## License
 
