@@ -1,7 +1,7 @@
 # Stately
 ## A CommonJS state-machine that works in Node or the browser.
 
-This is extracted from [Twebz](http://github.com/jchris/twebz) and is designed to DRY out the CouchDB changes listner Twebz's bot uses for handling Twitter API interactions. That said, this is entirely agnostic to backends and should work great with Redis, message queues, or anything else where you can get a feed of updates as they are happening to the database.
+This is extracted from [Twebz](http://github.com/jchris/twebz) and is designed to DRY out [the CouchDB changes listner Twebz's bot uses for handling Twitter API interactions](http://github.com/jchris/twebz/commit/4a23d999763dda0bcd9305833346aefd7a31d376). That said, this is entirely agnostic to backends and should work great with Redis, message queues, or anything else where you can get a feed of updates as they are happening to the database.
 
 It is totally isolated from IO, so it will also run fine in the browser, although I haven't done that yet.
 
