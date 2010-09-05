@@ -1,0 +1,26 @@
+{
+  "name" : "stately"
+, "description" : "A CommonJS state-machine that works in Node or the browser"
+, "homepage" : "http://github.com/jchris/stately"
+, "version" : "0.1.0"
+, "author" : "J Chris Anderson <jchris@couch.io> (http://jchrisa.net)"
+, "contributors" : []
+, "repository" : 
+  { "type" : "git"
+  , "url" : "http://github.com/jchris/stately.git"
+  }
+, "bugs" :
+  { "mail" : "jchris@couch.io"
+  , "web" : "http://github.com/jchris/stately/issues"
+  }
+, "directories" : { "lib" : "./lib" }
+, "engines" : { "node" : ">=0.2.0" }
+, "licenses" :
+  [ { "type" : "Apache 2.0"
+    , "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ]
+, "main" : "./lib/stately"
+, "dependencies": 
+  { "vows" : ">=0.5.1" }
+}
